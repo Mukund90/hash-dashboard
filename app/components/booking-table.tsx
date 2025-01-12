@@ -75,7 +75,7 @@ export function BookingTable() {
   )
 
   return (
-    <div className="w-full space-y-4">
+    <div>
       {/* Filter Input */}
       <div className="w-full mb-4">
         <input
@@ -87,24 +87,20 @@ export function BookingTable() {
         />
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto rounded-lg shadow-md">
-        <Table className="w-full">
+      <div className="border rounded-md">
+      <div className="max-h-[200px] overflow-y-auto">
+        <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Booking Time</TableHead>
-              <TableHead>System Number</TableHead>
-              <TableHead>User Details</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Start Timer</TableHead>
-              <TableHead>Timer</TableHead>
-            </TableRow>
+              <TableRow>
+                <TableHead className="sticky top-0 bg-background z-20" style={{ position: 'sticky' }}>Booking Time</TableHead>
+                <TableHead className="sticky top-0 bg-background z-20" style={{ position: 'sticky' }}>System Number</TableHead>
+                <TableHead className="sticky top-0 bg-background z-20" style={{ position: 'sticky' }}>User Details</TableHead>
+                <TableHead className="sticky top-0 bg-background z-20" style={{ position: 'sticky' }}>Status</TableHead>
+                <TableHead className="sticky top-0 bg-background z-20" style={{ position: 'sticky' }}>Start Timer</TableHead>
+                <TableHead className="sticky top-0 bg-background z-20" style={{ position: 'sticky' }}>Timer</TableHead>
+              </TableRow>
           </TableHeader>
-
-          <TableBody
-            className="mt-4 max-h-60 overflow-y-auto"
-            style={{ height: "300px" }} // Adjust the height for scroll effect
-          >
+          <TableBody>
             {filteredBookings.map((booking) => (
               <TableRow key={booking.id}>
                 <TableCell>{booking.time}</TableCell>
@@ -126,6 +122,8 @@ export function BookingTable() {
           </TableBody>
         </Table>
       </div>
+    </div>
+
     </div>
   )
 }

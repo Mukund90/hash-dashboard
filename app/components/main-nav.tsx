@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 import { Moon, Sun, Hash } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { useTheme } from "next-themes"
@@ -13,6 +14,7 @@ export function MainNav({
 
   const { setTheme, theme } = useTheme()
   const [isNavOpen, setIsNavOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <nav
@@ -27,31 +29,37 @@ export function MainNav({
       </Link>
       <Link
         href="/transaction"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/transaction" ? "text-primary" : "text-muted-foreground"
+        )}
       >
         Transaction Report
       </Link>
       <Link
         href="/gaming"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/gaming" ? "text-primary" : "text-muted-foreground"
+        )}
       >
         Manage Gaming Console
       </Link>
       <Link
         href="/booking"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/booking" ? "text-primary" : "text-muted-foreground"
+        )}
       >
         Manage Booking
       </Link>
       <Link
-        href="/tournament"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        Tournament Organize
-      </Link>
-      <Link
         href="/account"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/account" ? "text-primary" : "text-muted-foreground"
+        )}
       >
         My Account
       </Link>

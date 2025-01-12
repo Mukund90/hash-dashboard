@@ -14,8 +14,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     <div className="flex h-screen overflow-hidden bg-background text-foreground">
       <aside className={`w-64 bg-card border-r border-border p-4 transition-all duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
         <div className="flex items-center space-x-2 mb-6">
-          <Hash className="h-8 w-8 text-primary" />
-          <span className="text-xl font-bold">HASH</span>
+          <Hash className="h-8 w-8 text-5xl" style={{ color: '#97ff05' }} />
+          <span className="text-5xl font-bold" style={{ color: '#97ff05' }}>HASH</span>
         </div>
         <MainNav className="flex-col items-start space-y-4" />
       </aside>
