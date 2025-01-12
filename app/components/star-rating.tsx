@@ -12,7 +12,7 @@ export function StarRating({ rating }: StarRatingProps) {
     <div className="flex items-center">
       {[...Array(5)].map((_, i) => {
         if (i < fullStars) {
-          return <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+          return <Star key={i} className="w-12 h-12 fill-yellow-400 text-yellow-400" />
         } else if (i === fullStars && hasHalfStar) {
           return <StarHalf key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
         } else {
