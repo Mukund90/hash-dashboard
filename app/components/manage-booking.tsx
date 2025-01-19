@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { CalendarPlus, Edit, XCircle, Search, NotepadText, Clock, AlertCircle, Calendar, Users, CreditCard, FileText } from 'lucide-react'
+import { CalendarPlus, Edit, XCircle, Search, NotepadText, Clock, AlertCircle, Calendar, Users, CreditCard, FileText,CalendarClock, ListTodo, LucideIcon } from 'lucide-react'
 import {
   Table,
   TableBody,
@@ -19,43 +19,45 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { cn } from "@/lib/utils"
+import { Action as SonnerAction } from "sonner"
 
 
 
-const actions = [
-  { 
-    type: "create", 
-    icon: CalendarPlus, 
-    label: "Create New Booking", 
-    description: "Book a new gaming session",
-    gradient: "from-blue-500 to-blue-600"
-  },
-  { 
-    type: "change", 
-    icon: Edit, 
-    label: "Change Booking", 
-    description: "Modify existing booking details",
-    gradient: "from-green-500 to-green-600"
-  },
-  { 
-    type: "reject", 
-    icon: XCircle, 
-    label: "Reject Booking", 
-    description: "Cancel and process refunds",
-    gradient: "from-red-500 to-red-600"
-  },
-  { 
-    type: "list", 
-    icon: NotepadText, 
-    label: "List Booking", 
-    description: "View and manage all bookings",
-    gradient: "from-purple-500 to-purple-600"
-  },
-]
+// const actions = [
+//   { 
+//     type: "create", 
+//     icon: CalendarPlus, 
+//     label: "Create New Booking", 
+//     description: "Book a new gaming session",
+//     gradient: "from-blue-500 to-blue-600"
+//   },
+//   { 
+//     type: "change", 
+//     icon: Edit, 
+//     label: "Change Booking", 
+//     description: "Modify existing booking details",
+//     gradient: "from-green-500 to-green-600"
+//   },
+//   { 
+//     type: "reject", 
+//     icon: XCircle, 
+//     label: "Reject Booking", 
+//     description: "Cancel and process refunds",
+//     gradient: "from-red-500 to-red-600"
+//   },
+//   { 
+//     type: "list", 
+//     icon: NotepadText, 
+//     label: "List Booking", 
+//     description: "View and manage all bookings",
+//     gradient: "from-purple-500 to-purple-600"
+//   },
+// ]
 
 const formSteps = [
   { id: 1, icon: Users, label: "Gamer Info" },
@@ -63,6 +65,91 @@ const formSteps = [
   { id: 3, icon: FileText, label: "Console" },
   { id: 4, icon: CreditCard, label: "Payment" },
 ]
+// const container = {
+//   hidden: { opacity: 0 },
+//   show: {
+//     opacity: 1,
+//     transition: {
+//       staggerChildren: 0.1
+//     }
+//   }
+// }
+
+// const item = {
+//   hidden: { y: 20, opacity: 0 },
+//   show: { y: 0, opacity: 1 }
+// }
+
+// const formVariants = {
+//   hidden: { opacity: 0, y: 20 },
+//   visible: { 
+//     opacity: 1, 
+//     y: 0,
+//     transition: {
+//       duration: 0.3,
+//       ease: "easeOut"
+//     }
+//   },
+//   exit: { 
+//     opacity: 0,
+//     y: -20,
+//     transition: {
+//       duration: 0.2
+//     }
+//   }
+// }
+
+
+interface BookingAction {
+  iconColor: string
+  type: string
+  label: string
+  description: string
+  icon: LucideIcon
+  gradient: {
+    light: string
+    dark: string
+    iconLight: string
+    iconDark: string
+  }
+}
+
+const actions: BookingAction[] = [
+  {
+    type: "create",
+    label: "Create Booking",
+    description: "Schedule a new appointment",
+    icon: CalendarPlus,
+    color: "bg-blue-100 dark:bg-blue-950", // Solid colors for light and dark modes
+    iconColor: "#2563eb" // Light blue for the icon
+  },
+  {
+    type: "change",
+    label: "Change Booking",
+    description: "Modify existing appointments",
+    icon: CalendarClock,
+    color: "bg-purple-100 dark:bg-purple-950", // Solid purple colors
+    iconColor: "#7c3aed" // Purple for the icon
+  },
+  {
+    type: "reject",
+    label: "Reject Booking",
+    description: "Cancel or decline bookings",
+    icon: XCircle,
+    color: "bg-red-100 dark:bg-red-950", // Solid red colors
+    iconColor: "#ef4444" // Red for the icon
+  },
+  {
+    type: "list",
+    label: "List Bookings",
+    description: "View all appointments",
+    icon: ListTodo,
+    color: "bg-emerald-100 dark:bg-emerald-950", // Solid green colors
+    iconColor: "#059669" // Green for the icon
+  }
+];
+
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -74,34 +161,51 @@ const container = {
 }
 
 const item = {
-  hidden: { y: 20, opacity: 0 },
-  show: { y: 0, opacity: 1 }
-}
-
-const formVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
+  show: { 
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.3,
-      ease: "easeOut"
+      type: "spring",
+      stiffness: 300,
+      damping: 24
+    }
+  }
+}
+
+const formVariants = {
+  hidden: { 
+    opacity: 0,
+    y: 20,
+    scale: 0.95
+  },
+  visible: { 
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 24
     }
   },
   exit: { 
     opacity: 0,
-    y: -20,
+    scale: 0.95,
     transition: {
       duration: 0.2
     }
   }
 }
 
+
+
 export function ManageBooking() {
   const [selectedAction, setSelectedAction] = useState<string | null>(null)
+  const [hoveredAction, setHoveredAction] = useState<string | null>(null)
 
   const handleActionClick = (actionType: string) => {
-    setSelectedAction(actionType)
+    setSelectedAction(actionType === selectedAction ? null : actionType)
   }
 
   const renderForm = () => {
@@ -128,27 +232,36 @@ export function ManageBooking() {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
       >
         {actions.map((action) => (
-          <motion.div key={action.type} variants={item}>
-            <Card 
-              className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
-                selectedAction === action.type 
-                  ? 'ring-2 ring-primary shadow-lg transform scale-[1.02]' 
-                  : 'hover:scale-[1.02]'
-              }`}
-              onClick={() => handleActionClick(action.type)}
-            >
-              <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                <div className={`p-3 rounded-full ${
-                  selectedAction === action.type 
-                    ? 'bg-primary text-primary-foreground' 
-                    : 'bg-primary/10 text-primary'
-                } transition-colors duration-300`}>
-                  <action.icon className="w-8 h-8" />
-                </div>
-                <h3 className="text-lg font-semibold mt-4 mb-2">{action.label}</h3>
-                <p className="text-sm text-muted-foreground">{action.description}</p>
-              </CardContent>
-            </Card>
+          <motion.div 
+            key={action.type} 
+            variants={item}
+            onHoverStart={() => setHoveredAction(action.type)}
+            onHoverEnd={() => setHoveredAction(null)}
+          >
+           <Card
+  className={`relative overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg ${action.color} ${
+    selectedAction === action.type
+      ? "ring-2 ring-primary shadow-lg transform scale-[1.02]"
+      : "hover:scale-[1.02]"
+  }`}
+  onClick={() => handleActionClick(action.type)}
+>
+  <CardContent className="relative flex flex-col items-center justify-center p-6 text-center">
+    <div
+      className="p-3 rounded-full"
+      style={{
+        backgroundColor: action.iconColor + "1A", // Add transparency for the icon's background
+        color: action.iconColor // Icon color
+      }}
+    >
+      <action.icon className="w-8 h-8" />
+    </div>
+    <h3 className="text-lg font-semibold mt-4 mb-2 text-foreground">
+      {action.label}
+    </h3>
+    <p className="text-sm text-muted-foreground">{action.description}</p>
+  </CardContent>
+</Card>
           </motion.div>
         ))}
       </motion.div>
@@ -161,9 +274,12 @@ export function ManageBooking() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="bg-card rounded-lg shadow-lg p-6"
+            className="relative bg-card rounded-lg shadow-lg p-6 border dark:border-gray-800"
           >
-            {renderForm()}
+            <div className="absolute inset-0 bg-gradient-to-br from-background/50 to-background rounded-lg" />
+            <div className="relative">
+              {renderForm()}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

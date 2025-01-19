@@ -15,7 +15,7 @@ const actions = [
     icon: PlusCircle,
     label: "Add New Console",
     description: "Register a new gaming console in the system",
-    color: "bg-emerald-50 dark:bg-emerald-950",
+    color: "bg-emerald-100 dark:bg-emerald-950",
     iconColor: "#059669"
   },
   {
@@ -23,7 +23,7 @@ const actions = [
     icon: List,
     label: "List Consoles",
     description: "View and manage existing consoles",
-    color: "bg-blue-50 dark:bg-blue-950",
+    color: "bg-blue-100 dark:bg-blue-950",
     iconColor: "#2563eb"
   },
 ]
@@ -32,28 +32,28 @@ const consoleTypes = [
   {
     type: "PC",
     icon: Monitor,
-    color: "bg-purple-50 dark:bg-purple-950",
+    color: "bg-purple-100 dark:bg-purple-950",
     iconColor: "#7c3aed",
     description: "Gaming PCs and Workstations"
   },
   {
     type: "PS5",
     icon: Tv,
-    color: "bg-blue-50 dark:bg-blue-950",
+    color: "bg-blue-100 dark:bg-blue-950",
     iconColor: "#2563eb",
     description: "PlayStation 5 Gaming Consoles"
   },
   {
     type: "Xbox",
     icon: Gamepad,
-    color: "bg-green-50 dark:bg-green-950",
+    color: "bg-green-100 dark:bg-green-950",
     iconColor: "#059669",
     description: "Xbox Series Gaming Consoles"
   },
   {
     type: "VR",
     icon: Headset,
-    color: "bg-orange-50 dark:bg-orange-950",
+    color: "bg-orange-100 dark:bg-orange-950",
     iconColor: "#ea580c",
     description: "Virtual Reality Systems"
   },
@@ -89,41 +89,41 @@ export function ManageGamingConsole() {
     }
   }
 
-  const renderHeader = () => {
-    let title = "Gaming Console Management"
-    let description = "Select an action to manage gaming consoles"
+  // const renderHeader = () => {
+  //   let title = "Gaming Console Management"
+  //   let description = "Select an action to manage gaming consoles"
 
-    if (selectedAction === "add") {
-      title = selectedConsoleType 
-        ? `Add New ${selectedConsoleType} Console`
-        : "Select Console Type"
-      description = selectedConsoleType
-        ? `Fill in the details for the new ${selectedConsoleType} console`
-        : "Choose the type of gaming console to add"
-    } else if (selectedAction === "list") {
-      title = "Console Inventory"
-      description = "View and manage all registered gaming consoles"
-    }
+  //   if (selectedAction === "add") {
+  //     title = selectedConsoleType 
+  //       ? `Add New ${selectedConsoleType} Console`
+  //       : "Select Console Type"
+  //     description = selectedConsoleType
+  //       ? `Fill in the details for the new ${selectedConsoleType} console`
+  //       : "Choose the type of gaming console to add"
+  //   } else if (selectedAction === "list") {
+  //     title = "Console Inventory"
+  //     description = "View and manage all registered gaming consoles"
+  //   }
 
-    return (
-      <div className="mb-8">
-        <div className="flex items-center gap-4 mb-2">
-          {(selectedAction || editingConsole) && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleBack}
-              className="h-8 w-8"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-          )}
-          <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
-        </div>
-        <p className="text-muted-foreground">{description}</p>
-      </div>
-    )
-  }
+  //   return (
+  //     <div className="mb-8">
+  //       <div className="flex items-center gap-4 mb-2">
+  //         {(selectedAction || editingConsole) && (
+  //           <Button
+  //             variant="ghost"
+  //             size="icon"
+  //             onClick={handleBack}
+  //             className="h-8 w-8"
+  //           >
+  //             <ArrowLeft className="h-4 w-4" />
+  //           </Button>
+  //         )}
+  //         <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+  //       </div>
+  //       <p className="text-muted-foreground">{description}</p>
+  //     </div>
+  //   )
+  // }
 
   const renderContent = () => {
     if (selectedAction === "add") {
@@ -204,7 +204,7 @@ export function ManageGamingConsole() {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      {renderHeader()}
+      {/* {renderHeader()} */}
       <AnimatePresence mode="wait">
         {renderContent()}
       </AnimatePresence>
