@@ -2,7 +2,7 @@ import { createTheme } from "@/components/ui/theme"
 
 export const theme = createTheme({
   primary: {
-    DEFAULT: "#97ff05",
+    DEFAULT: "#098637",
     foreground: "#000000",
   },
   secondary: {
@@ -27,7 +27,7 @@ export const theme = createTheme({
   },
   accent: {
     DEFAULT: "#2a2a2a",
-    foreground: "#97ff05",
+    foreground: "#098637",
   },
   destructive: {
     DEFAULT: "#ff0000",

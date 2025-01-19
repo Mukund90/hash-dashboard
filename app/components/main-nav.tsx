@@ -1,8 +1,8 @@
 import Link from "next/link"
-import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
-import { Moon, Sun, Hash } from 'lucide-react'
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { LayoutDashboard, Receipt, Gamepad2, CalendarCheck, User } from "lucide-react"
+import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useState } from "react"
 
@@ -10,72 +10,57 @@ export function MainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
-
-
+  const pathname = usePathname()
   const { setTheme, theme } = useTheme()
   const [isNavOpen, setIsNavOpen] = useState(false)
-  const pathname = usePathname()
 
   return (
     <nav
-      className={cn("flex", className)}
+      className={cn("flex flex-col space-y-2 transition-all duration-300 ease-in-out", className)}
       {...props}
     >
-      <Link
-        href="/"
-        className="text-sm font-medium transition-colors hover:text-primary"
-      >
-        Dashboard
-      </Link>
-      <Link
-        href="/transaction"
+      {[
+        { href: "/", icon: LayoutDashboard, label: "Dashboard" },
+        { href: "/transaction", icon: Receipt, label: "Transaction Report" },
+        { href: "/gaming", icon: Gamepad2, label: "Manage Gaming Console" },
+        { href: "/booking", icon: CalendarCheck, label: "Manage Booking" },
+        { href: "/account", icon: User, label: "My Account" },
+      ].map(({ href, icon: Icon, label }) => (
+        <Link
+          key={href}
+          href={href}
+          className={cn(
+            "group flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium transition-all hover:bg-accent hover:text-accent-foreground",
+            pathname === href ? "bg-accent text-accent-foreground" : "text-muted-foreground"
+          )}
+        >
+          <Icon className="h-5 w-5 shrink-0" />
+          <span className="hidden group-hover:inline-block">{label}</span>
+        </Link>
+      ))}
+
+      <button
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/transaction" ? "text-primary" : "text-muted-foreground"
+          "group flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium transition-all hover:bg-accent hover:text-accent-foreground"
         )}
       >
-        Transaction Report
-      </Link>
-      <Link
-        href="/gaming"
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/gaming" ? "text-primary" : "text-muted-foreground"
-        )}
-      >
-        Manage Gaming Console
-      </Link>
-      <Link
-        href="/booking"
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/booking" ? "text-primary" : "text-muted-foreground"
-        )}
-      >
-        Manage Booking
-      </Link>
-      <Link
-        href="/account"
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/account" ? "text-primary" : "text-muted-foreground"
-        )}
-      >
-        My Account
-      </Link>
-      <div>
-      <Button variant="outline" size="icon" onClick={() => setIsNavOpen(!isNavOpen)} className="md:hidden">
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle navigation</span>
-          </Button>
-          <Button variant="outline" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-      </div>
+        <div className="relative flex items-center justify-center w-5 h-5">
+          <Sun
+            className={cn(
+              "absolute transition-transform duration-300",
+              theme === "dark" ? "rotate-90 scale-0" : "rotate-0 scale-100"
+            )}
+          />
+          <Moon
+            className={cn(
+              "absolute transition-transform duration-300",
+              theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"
+            )}
+          />
+        </div>
+        <span className="hidden group-hover:inline-block">Toggle Theme</span>
+      </button>
     </nav>
   )
 }
-

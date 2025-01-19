@@ -452,13 +452,13 @@ export function TransactionTable() {
         <Table>
           <TableHeader className="sticky top-0 bg-background z-10">
             <TableRow>
-              <TableHead>Slot Date</TableHead>
-              <TableHead>Slot Time</TableHead>
-              <TableHead>User Name</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Mode of Payment</TableHead>
-              <TableHead>Booking Type</TableHead>
-              <TableHead>Settlement Status</TableHead>
+              <TableHead style={{ fontWeight: "bold" }}>Slot Date</TableHead>
+              <TableHead style={{ fontWeight: "bold" }}>Slot Time</TableHead>
+              <TableHead style={{ fontWeight: "bold" }}>User Name</TableHead>
+              <TableHead style={{ fontWeight: "bold" }}>Amount</TableHead>
+              <TableHead style={{ fontWeight: "bold" }}>Mode of Payment</TableHead>
+              <TableHead style={{ fontWeight: "bold" }}>Booking Type</TableHead>
+              <TableHead style={{ fontWeight: "bold" }}>Settlement Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

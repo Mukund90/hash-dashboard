@@ -16,7 +16,7 @@ export function HardwareChart() {
         <XAxis type="number" />
         <YAxis dataKey="name" type="category" />
         <Tooltip />
-        <Bar dataKey="value" fill="#97ff05" />
+        <Bar dataKey="value" fill="#098637" />
       </BarChart>
     </ResponsiveContainer>
   )

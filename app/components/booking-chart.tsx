@@ -26,9 +26,9 @@ export function BookingChart() {
               <XAxis dataKey="day" />
               <YAxis />
               <Tooltip />
-              {/* <Bar dataKey="bookings" fill="#97ff05" />
-              <Bar dataKey="bookings" fill="#97ff05" /> */}
-              <Bar dataKey="hash" name="Hash Bookings" fill="#97ff05" />
+              {/* <Bar dataKey="bookings" fill="#098637" />
+              <Bar dataKey="bookings" fill="#098637" /> */}
+              <Bar dataKey="hash" name="Hash Bookings" fill="#098637" />
               <Bar dataKey="direct" name="Direct Bookings" fill="#9c9b9a" />
             </BarChart>
           </ResponsiveContainer>

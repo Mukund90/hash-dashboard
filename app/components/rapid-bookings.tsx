@@ -70,14 +70,14 @@ function RapidBookings() {
   };
 
   return (
-    <div className="min-h-screen  text-white">
+    <div className="min-h-screen " >
       {/* Header */}
       <header className="p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-white">Rapid Booking</h1>
+        <div className=" mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-bold ">Rapid Booking</h1>
           <button
             onClick={() => setFilterOpen(!filterOpen)}
-            className="flex items-center gap-2 bg-[#098637] text-white px-4 py-2 rounded-lg hover:bg-[#076d2a] transition-colors"
+            className="flex items-center gap-2  px-4 py-2 rounded-lg hover:bg-[#076d2a] transition-colors"
           >
             <Filter className="w-5 h-5" />
             Filter
@@ -87,12 +87,12 @@ function RapidBookings() {
 
       {/* Filter Panel */}
       {filterOpen && (
-        <div className="container mx-auto p-4 bg-[#111111] mt-2 rounded-lg border border-[#222222]">
+        <div className=" mx-auto p-4  mt-2 rounded-lg border ">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">System Type</label>
+              <label className="block text-sm font-medium    mb-2">System Type</label>
               <select 
-                className="w-full p-2 rounded-lg bg-[#1a1a1a] border border-[#333333] text-white focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
+                className="w-full p-2 rounded-lg  border focus:ring-1 focus:ring-[#098637]"
                 value={filters.type}
                 onChange={(e) => setFilters({...filters, type: e.target.value})}
               >
@@ -104,9 +104,9 @@ function RapidBookings() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
+              <label className="block text-sm font-medium    mb-2">Status</label>
               <select 
-                className="w-full p-2 rounded-lg bg-[#1a1a1a] border border-[#333333] text-white focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
+                className="w-full p-2 rounded-lg   border border-[#333333]   focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
                 value={filters.status}
                 onChange={(e) => setFilters({...filters, status: e.target.value as SystemStatus})}
               >
@@ -117,9 +117,9 @@ function RapidBookings() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Price Range</label>
+              <label className="block text-sm font-medium    mb-2">Price Range</label>
               <select 
-                className="w-full p-2 rounded-lg bg-[#1a1a1a] border border-[#333333] text-white focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
+                className="w-full p-2 rounded-lg   border border-[#333333]   focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
                 value={filters.price}
                 onChange={(e) => setFilters({...filters, price: e.target.value})}
               >
@@ -133,11 +133,11 @@ function RapidBookings() {
       )}
 
       {/* Main Content */}
-      <main className="container mx-auto p-4">
+      <main className=" mx-auto p-4">
         {!showBookingForm ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredSystems.map((system) => (
-              <div key={system.id} className="bg-[#111111] border border-[#222222] rounded-lg p-6 hover:border-[#098637] transition-colors">
+              <div key={system.id} className="   border border-[#222222] rounded-lg p-6 hover:border-[#098637] transition-colors">
                 <div className="flex justify-between items-start mb-4">
                   <div className="text-[#098637]">{system.icon}</div>
                   <span className="font-semibold text-[#098637]">{system.price}</span>
@@ -151,7 +151,7 @@ function RapidBookings() {
                   disabled={system.status !== 'available'}
                   className={`w-full py-2 rounded-lg transition-colors ${
                     system.status === 'available'
-                      ? 'bg-[#098637] text-white hover:bg-[#076d2a]'
+                      ? 'bg-[#098637]   hover:bg-[#076d2a]'
                       : 'bg-[#333333] text-gray-500 cursor-not-allowed'
                   }`}
                 >
@@ -161,35 +161,35 @@ function RapidBookings() {
             ))}
           </div>
         ) : (
-          <div className="max-w-2xl mx-auto bg-[#111111] border border-[#222222] rounded-lg p-6">
+          <div className="max-w-2xl mx-auto    border border-[#222222] rounded-lg p-6">
             <h2 className="text-2xl font-bold mb-6">Book {selectedSystem?.name} #{selectedSystem?.number}</h2>
             <form className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                <label className="block text-sm font-medium    mb-2">Name</label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 text-gray-500 w-5 h-5" />
                   <input
                     type="text"
-                    className="w-full bg-[#1a1a1a] border border-[#333333] pl-10 pr-4 py-2 rounded-lg text-white focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
+                    className="w-full   border border-[#333333] pl-10 pr-4 py-2 rounded-lg   focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
                     placeholder="Enter your name"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
+                <label className="block text-sm font-medium    mb-2">Phone Number</label>
                 <div className="relative">
                   <Phone className="absolute left-3 top-3 text-gray-500 w-5 h-5" />
                   <input
                     type="tel"
-                    className="w-full bg-[#1a1a1a] border border-[#333333] pl-10 pr-4 py-2 rounded-lg text-white focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
+                    className="w-full   border border-[#333333] pl-10 pr-4 py-2 rounded-lg   focus:border-[#098637] focus:ring-1 focus:ring-[#098637]"
                     placeholder="Enter phone number"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Time Slot</label>
+                <label className="block text-sm font-medium    mb-2">Time Slot</label>
                 <div className="grid grid-cols-3 gap-3">
                   {timeSlots.map((slot, index) => (
                     <button
@@ -198,7 +198,7 @@ function RapidBookings() {
                       disabled={!slot.available}
                       className={`p-2 rounded-lg text-center ${
                         slot.available
-                          ? 'bg-[#098637] text-white hover:bg-[#076d2a]'
+                          ? 'bg-[#098637]   hover:bg-[#076d2a]'
                           : 'bg-[#333333] text-gray-500 cursor-not-allowed'
                       }`}
                     >
@@ -209,10 +209,10 @@ function RapidBookings() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Payment Method</label>
+                <label className="block text-sm font-medium    mb-2">Payment Method</label>
                 <div className="relative">
                   <CreditCard className="absolute left-3 top-3 text-gray-500 w-5 h-5" />
-                  <select className="w-full bg-[#1a1a1a] border border-[#333333] pl-10 pr-4 py-2 rounded-lg text-white focus:border-[#098637] focus:ring-1 focus:ring-[#098637]">
+                  <select className="w-full   border border-[#333333] pl-10 pr-4 py-2 rounded-lg   focus:border-[#098637] focus:ring-1 focus:ring-[#098637]">
                     <option>Credit Card</option>
                     <option>Debit Card</option>
                     <option>Digital Wallet</option>
@@ -224,13 +224,13 @@ function RapidBookings() {
                 <button
                   type="button"
                   onClick={() => setShowBookingForm(false)}
-                  className="w-1/2 border border-[#333333] py-2 rounded-lg hover:bg-[#1a1a1a] transition-colors"
+                  className="w-1/2 border border-[#333333] py-2 rounded-lg hover:  transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="w-1/2 bg-[#098637] text-white py-2 rounded-lg hover:bg-[#076d2a] transition-colors"
+                  className="w-1/2 bg-[#098637]   py-2 rounded-lg hover:bg-[#076d2a] transition-colors"
                 >
                   Confirm Booking
                 </button>
