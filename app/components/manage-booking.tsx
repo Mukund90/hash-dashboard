@@ -9,12 +9,23 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { CalendarPlus, Edit, XCircle, Search } from 'lucide-react'
+import { CalendarPlus, Edit, XCircle, Search, NotepadText  } from 'lucide-react'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+
 
 const actions = [
   { type: "create", icon: CalendarPlus, label: "Create New Booking" },
   { type: "change", icon: Edit, label: "Change Booking" },
   { type: "reject", icon: XCircle, label: "Reject Booking" },
+  { type: "list", icon:NotepadText , label: "List Booking" },
 ]
 
 export function ManageBooking() {
@@ -32,6 +43,8 @@ export function ManageBooking() {
         return <ChangeBookingForm />
       case "reject":
         return <RejectBookingForm />
+      case "list":
+        return <ListBooking />
       default:
         return null
     }
@@ -39,7 +52,7 @@ export function ManageBooking() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {actions.map((action) => (
           <Card 
             key={action.type} 
@@ -349,6 +362,133 @@ function RejectBookingForm() {
 
       <Button type="submit" variant="destructive">Reject Booking</Button>
     </form>
+
+
   )
+}
+
+function ListBooking() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [bookings, setBookings] = useState([
+    { id: "1", time: "10:00 AM", system: "PC1", user: "User 1", status: "Not played" },
+    { id: "2", time: "11:00 AM", system: "PS5-2", user: "User 2", status: "In progress", startTime: Date.now() - 1800000 },
+    { id: "3", time: "12:00 PM", system: "Xbox-1", user: "User 3", status: "Completed" },
+    { id: "4", time: "01:00 PM", system: "PC2", user: "User 4", status: "Not played" },
+    { id: "5", time: "02:00 PM", system: "PS5-1", user: "User 5", status: "In progress", startTime: Date.now() - 3600000 },
+    { id: "6", time: "03:00 PM", system: "Xbox-2", user: "User 6", status: "Completed" },
+    { id: "7", time: "04:00 PM", system: "PC3", user: "User 7", status: "Not played" },
+    { id: "8", time: "05:00 PM", system: "PS5-3", user: "User 8", status: "In progress", startTime: Date.now() - 5400000 },
+    { id: "9", time: "06:00 PM", system: "Xbox-3", user: "User 9", status: "Completed" },
+    { id: "10", time: "07:00 PM", system: "PC4", user: "User 10", status: "Not played" }
+  ]);
+  const [filteredBookings, setFilteredBookings] = useState(bookings);
+
+  const handleSearch = () => {
+    if (searchQuery.trim() === "") {
+      setFilteredBookings(bookings);
+    } else {
+      const lowerQuery = searchQuery.toLowerCase();
+      const results = bookings.filter((booking) =>
+        booking.id.toLowerCase().includes(lowerQuery) ||
+        booking.time.toLowerCase().includes(lowerQuery) ||
+        booking.system.toLowerCase().includes(lowerQuery) ||
+        booking.user.toLowerCase().includes(lowerQuery) ||
+        booking.status.toLowerCase().includes(lowerQuery)
+      );
+      setFilteredBookings(results);
+    }
+  };
+
+  const startTimer = (id: string) => {
+    setBookings((prevBookings) =>
+      prevBookings.map((booking) =>
+        booking.id === id
+          ? { ...booking, status: "In progress", startTime: Date.now() }
+          : booking
+      )
+    );
+    setFilteredBookings((prevFiltered) =>
+      prevFiltered.map((booking) =>
+        booking.id === id
+          ? { ...booking, status: "In progress", startTime: Date.now() }
+          : booking
+      )
+    );
+  };
+
+  const formatTimer = (startTime: number) => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const minutes = Math.floor(elapsed / 60);
+    const seconds = elapsed % 60;
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  return (
+    <form className="space-y-8">
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Search Booking</h3>
+        <div className="flex space-x-2">
+          <div className="flex-grow">
+            <Input
+              id="searchQuery"
+              placeholder="Search by any field"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <Button type="button" onClick={handleSearch}>
+            <Search className="w-4 h-4 mr-2" />
+            Search
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">List of Bookings</h3>
+        <Table className="rounded-lg overflow-hidden shadow-lg">
+          <TableHeader style={{ backgroundColor: "#28282A" }}>
+            <TableRow>
+              <TableHead>Booking ID</TableHead>
+              <TableHead>Booking Time</TableHead>
+              <TableHead>System Number</TableHead>
+              <TableHead>User Details</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Start Timer</TableHead>
+              <TableHead>Timer</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredBookings.map((booking) => (
+              <TableRow key={booking.id}>
+                <TableCell>{booking.id}</TableCell>
+                <TableCell>{booking.time}</TableCell>
+                <TableCell>{booking.system}</TableCell>
+                <TableCell>{booking.user}</TableCell>
+                <TableCell>{booking.status}</TableCell>
+                <TableCell>
+                  {booking.status === "Not played" && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => startTimer(booking.id)}
+                    >
+                      Start
+                    </Button>
+                  )}
+                </TableCell>
+                <TableCell>
+                  {booking.status === "In progress" && booking.startTime && (
+                    <span>{formatTimer(booking.startTime)}</span>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </form>
+  );
 }
 

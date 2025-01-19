@@ -8,11 +8,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const consoles = ["Computer", "PS5", "Xbox", "VR"];
 
-function getHourString(hour) {
+function getHourString(hour: number) {
   return hour < 12 ? `${hour} AM` : hour === 12 ? `${hour} PM` : `${hour - 12} PM`;
 }
 
-function getNextHours(count) {
+function getNextHours(count: number) {
   const currentHour = new Date().getHours();
   return Array.from({ length: count }, (_, index) => (currentHour + index) % 24)
     .map(getHourString);
