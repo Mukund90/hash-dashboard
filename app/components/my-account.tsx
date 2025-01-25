@@ -1,4 +1,5 @@
 "use client"
+
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -6,24 +7,16 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { 
-  User, MapPin, Calendar, Clock, Mail, Phone, Lock, 
-  CreditCard, FileCheck, Camera, Building2, Sparkles,
-  Shield, BellRing, Wallet, Settings, Globe, Coffee
-} from 'lucide-react'
-import { cn } from "@/lib/utils"
+import { User, MapPin, Calendar, Clock, Mail, Phone, Lock, CreditCard, FileCheck } from 'lucide-react'
 
 export function MyAccount() {
   const [cafeImages, setCafeImages] = useState<string[]>([
-    "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=2071&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1932&auto=format&fit=crop",
+    "/placeholder.svg?height=100&width=100",
+    "/placeholder.svg?height=100&width=100",
+    "/placeholder.svg?height=100&width=100",
   ])
-
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -36,281 +29,206 @@ export function MyAccount() {
     }
   }
 
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
   return (
-    <div className="min-h-screen bg-background">
-     
+    <form className="space-y-8">
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold" style={{ color: '#3498db' }}>Cafe Images</h2>
+        <div className="flex flex-wrap gap-4">
+          {cafeImages.map((image, index) => (
+            <img key={index} src={image} alt={`Cafe ${index + 1}`} className="w-24 h-24 object-cover rounded-md" />
+          ))}
+          <label className="w-24 h-24 flex items-center justify-center border-2 border-dashed rounded-md cursor-pointer">
+            <input type="file" className="hidden" onChange={handleImageUpload} accept="image/*" />
+            <span className="text-4xl">+</span>
+          </label>
+        </div>
+      </div>
 
-      <div className="container py-8 space-y-8">
-        {/* Page Header */}
-        {/* <div>
-          <h1 className="text-3xl font-semibold">Account Settings</h1>
-          <p className="text-muted-foreground mt-2">
-            Manage your cafe's profile, subscription, and business settings
-          </p>
-        </div> */}
-
-        <div className="grid grid-cols-12 gap-6">
-          {/* Left Sidebar */}
-          <div className="col-span-12 md:col-span-3 space-y-4">
-            <Card>
-              <CardContent className="p-4">
-                <div className="space-y-4">
-                  <div className="flex flex-col items-center space-y-2">
-                    <Avatar className="h-20 w-20">
-                      <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    <div className="text-center">
-                      <h3 className="font-medium">John's Cafe</h3>
-                      <p className="text-sm text-muted-foreground">Premium Member</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2 text-sm">
-                      <Globe className="h-4 w-4 text-muted-foreground" />
-                      <span>cafe.example.com</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-sm">
-                      <Mail className="h-4 w-4 text-muted-foreground" />
-                      <span>contact@cafe.example.com</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-4">
-                <nav className="space-y-2">
-                  {[
-                    { icon: User, label: "Profile" },
-                    { icon: Building2, label: "Business Details" },
-                    { icon: Shield, label: "Security" },
-                    { icon: Wallet, label: "Billing" },
-                    { icon: BellRing, label: "Notifications" },
-                  ].map((item) => (
-                    <Button
-                      key={item.label}
-                      variant="ghost"
-                      className="w-full justify-start"
-                    >
-                      <item.icon className="mr-2 h-4 w-4" />
-                      {item.label}
-                    </Button>
-                  ))}
-                </nav>
-              </CardContent>
-            </Card>
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold" style={{ color: '#3498db' }}>Cafe Details</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="ownerName">
+              <User className="w-4 h-4 inline-block mr-2" />
+              Owner Name
+            </Label>
+            <Input id="ownerName" />
           </div>
-
-          {/* Main Content */}
-          <div className="col-span-12 md:col-span-9 space-y-6">
-            <form className="space-y-6">
-              {/* Cafe Gallery */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Cafe Gallery</CardTitle>
-                  <CardDescription>Showcase your cafe's ambiance and offerings</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {cafeImages.map((image, index) => (
-                      <div key={index} className="relative group aspect-square">
-                        <img
-                          src={image}
-                          alt={`Cafe ${index + 1}`}
-                          className="w-full h-full object-cover rounded-md"
-                        />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-md flex items-center justify-center">
-                          <Button variant="secondary" size="sm">
-                            <Camera className="w-4 h-4 mr-2" />
-                            Edit
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                    <label className="aspect-square flex items-center justify-center border-2 border-dashed border-muted rounded-md cursor-pointer hover:border-primary/50 transition-colors">
-                      <input type="file" className="hidden" onChange={handleImageUpload} accept="image/*" />
-                      <div className="text-center">
-                        <Camera className="w-6 h-6 mx-auto text-muted-foreground" />
-                        <span className="text-sm text-muted-foreground mt-2">Add Photo</span>
-                      </div>
-                    </label>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Business Details */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Business Details</CardTitle>
-                  <CardDescription>Update your cafe's basic information</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label>Business Name</Label>
-                      <Input defaultValue="John's Cafe" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Business Type</Label>
-                      <Select defaultValue="cafe">
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="cafe">Cafe</SelectItem>
-                          <SelectItem value="restaurant">Restaurant</SelectItem>
-                          <SelectItem value="bakery">Bakery</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Phone</Label>
-                      <Input type="tel" defaultValue="+1 (555) 000-0000" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Website</Label>
-                      <Input type="url" defaultValue="https://cafe.example.com" />
-                    </div>
-                    <div className="space-y-2 md:col-span-2">
-                      <Label>Address</Label>
-                      <Textarea defaultValue="123 Cafe Street, Food District, City, 12345" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Label>Operating Hours</Label>
-                    <div className="space-y-4">
-                      {days.map((day) => (
-                        <div key={day} className="flex items-center space-x-4">
-                          <div className="w-20">
-                            <span className="text-sm font-medium">{day}</span>
-                          </div>
-                          <Checkbox id={`day-${day}`} defaultChecked />
-                          <div className="flex-1 grid grid-cols-2 gap-4">
-                            <Input type="time" defaultValue="09:00" />
-                            <Input type="time" defaultValue="18:00" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Subscription & Billing */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Subscription & Billing</CardTitle>
-                  <CardDescription>Manage your subscription and payment details</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="rounded-lg border p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="space-y-1">
-                        <h4 className="font-medium">Premium Plan</h4>
-                        <p className="text-sm text-muted-foreground">$49/month, billed annually</p>
-                      </div>
-                      <Badge variant="secondary">Active</Badge>
-                    </div>
-                    <div className="mt-4 space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <Card>
-                          <CardContent className="pt-4">
-                            <div className="text-center">
-                              <h3 className="text-2xl font-bold">150k</h3>
-                              <p className="text-sm text-muted-foreground">Monthly Views</p>
-                            </div>
-                          </CardContent>
-                        </Card>
-                        <Card>
-                          <CardContent className="pt-4">
-                            <div className="text-center">
-                              <h3 className="text-2xl font-bold">2.5k</h3>
-                              <p className="text-sm text-muted-foreground">Orders/Month</p>
-                            </div>
-                          </CardContent>
-                        </Card>
-                        <Card>
-                          <CardContent className="pt-4">
-                            <div className="text-center">
-                              <h3 className="text-2xl font-bold">99.9%</h3>
-                              <p className="text-sm text-muted-foreground">Uptime</p>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                      <div className="flex justify-end space-x-4">
-                        <Button variant="outline">View Invoice History</Button>
-                        <Button>Upgrade Plan</Button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h4 className="font-medium">Payment Method</h4>
-                    <div className="flex items-center space-x-4 rounded-lg border p-4">
-                      <CreditCard className="h-6 w-6" />
-                      <div>
-                        <p className="font-medium">•••• •••• •••• 4242</p>
-                        <p className="text-sm text-muted-foreground">Expires 12/24</p>
-                      </div>
-                      <Button variant="ghost" size="sm" className="ml-auto">
-                        Update
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Verified Documents */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Verified Documents</CardTitle>
-                  <CardDescription>Manage your business verification documents</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {[
-                      { name: "Business License", status: "verified", expiry: "2025-12-31" },
-                      { name: "Food Safety Certificate", status: "verified", expiry: "2024-06-30" },
-                      { name: "Tax Registration", status: "verified", expiry: "2024-12-31" },
-                      { name: "Insurance Policy", status: "pending", expiry: "2024-12-31" },
-                    ].map((doc) => (
-                      <div key={doc.name} className="flex items-center justify-between p-4 rounded-lg border">
-                        <div className="flex items-center space-x-4">
-                          <FileCheck className={cn(
-                            "h-5 w-5",
-                            doc.status === "verified" ? "text-green-500" : "text-yellow-500"
-                          )} />
-                          <div>
-                            <p className="font-medium">{doc.name}</p>
-                            <p className="text-sm text-muted-foreground">Expires: {doc.expiry}</p>
-                          </div>
-                        </div>
-                        <Badge variant={doc.status === "verified" ? "default" : "secondary"}>
-                          {doc.status}
-                        </Badge>
-                      </div>
-                    ))}
-                    <Button variant="outline" className="w-full">
-                      <FileCheck className="mr-2 h-4 w-4" />
-                      Upload New Document
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Action Buttons */}
-              <div className="flex justify-end space-x-4">
-                <Button variant="outline">Cancel</Button>
-                <Button>Save Changes</Button>
-              </div>
-            </form>
+          <div className="space-y-2">
+            <Label htmlFor="address">
+              <MapPin className="w-4 h-4 inline-block mr-2" />
+              Address
+            </Label>
+            <Textarea id="address" />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label>
+            <Calendar className="w-4 h-4 inline-block mr-2" />
+            Opening Days
+          </Label>
+          <div className="flex flex-wrap gap-2">
+            {days.map((day) => (
+              <label key={day} className="flex items-center space-x-2">
+                <Checkbox id={`day-${day}`} />
+                <span>{day}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="openingTime">
+              <Clock className="w-4 h-4 inline-block mr-2" />
+              Opening Time
+            </Label>
+            <Input id="openingTime" type="time" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="closingTime">
+              <Clock className="w-4 h-4 inline-block mr-2" />
+              Closing Time
+            </Label>
+            <Input id="closingTime" type="time" />
           </div>
         </div>
       </div>
-    </div>
-  );
+
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold" style={{ color: '#3498db' }}>Profile Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="username">
+              <User className="w-4 h-4 inline-block mr-2" />
+              Username
+            </Label>
+            <Input id="username" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="fullName">
+              <User className="w-4 h-4 inline-block mr-2" />
+              Full Name
+            </Label>
+            <Input id="fullName" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="email">
+              <Mail className="w-4 h-4 inline-block mr-2" />
+              Email Address
+            </Label>
+            <Input id="email" type="email" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="phone">
+              <Phone className="w-4 h-4 inline-block mr-2" />
+              Phone Number
+            </Label>
+            <Input id="phone" type="tel" />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="profilePicture">Profile Picture</Label>
+          <div className="flex items-center space-x-4">
+            <Avatar className="w-16 h-16">
+              <AvatarImage src="/placeholder.svg" alt="Profile" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Input id="profilePicture" type="file" accept="image/*" />
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold" style={{ color: '#3498db' }}>Account Settings</h2>
+        <div className="space-y-2">
+          <Button variant="outline">
+            <Lock className="w-4 h-4 mr-2" />
+            Change Password
+          </Button>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="emailPreference">Email Preference</Label>
+          <Select>
+            <SelectTrigger id="emailPreference">
+              <SelectValue placeholder="Select email preference" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Receive all emails</SelectItem>
+              <SelectItem value="important">Important notifications only</SelectItem>
+              <SelectItem value="none">Do not send emails</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold" style={{ color: '#3498db' }}>Subscription Details</h2>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="text-lg font-semibold">Current Plan: Premium</h3>
+                <p className="text-sm text-gray-500">Billed annually</p>
+              </div>
+              <Button variant="outline">Upgrade Plan</Button>
+            </div>
+          </CardContent>
+        </Card>
+        <div className="space-y-2">
+          <Label htmlFor="billingYear">Request Billing Report</Label>
+          <div className="flex space-x-2">
+            <Select>
+              <SelectTrigger id="billingYear">
+                <SelectValue placeholder="Select year" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="2023">2023</SelectItem>
+                <SelectItem value="2022">2022</SelectItem>
+                <SelectItem value="2021">2021</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select>
+              <SelectTrigger id="billingQuarter">
+                <SelectValue placeholder="Select quarter" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Q1">Q1</SelectItem>
+                <SelectItem value="Q2">Q2</SelectItem>
+                <SelectItem value="Q3">Q3</SelectItem>
+                <SelectItem value="Q4">Q4</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button>
+              <CreditCard className="w-4 h-4 mr-2" />
+              Request Report
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold" style={{ color: '#3498db' }}>Verified Documents</h2>
+        <div className="space-y-2">
+          {[
+            { name: "Business License", verified: true },
+            { name: "Tax ID", verified: true },
+            { name: "Insurance Certificate", verified: false },
+          ].map((doc) => (
+            <div key={doc.name} className="flex items-center space-x-2">
+              <FileCheck className={`w-5 h-5 ${doc.verified ? 'text-green-500' : 'text-red-500'}`} />
+              <span>{doc.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex space-x-4">
+        <Button type="submit">Save Changes</Button>
+        <Button type="button" variant="outline">Submit for Review</Button>
+      </div>
+    </form>
+  )
 }
+

@@ -24,7 +24,7 @@ export function RapidBooking() {
   return (
     <Card>
       <CardHeader>
-        {/* <CardTitle>Rapid Booking</CardTitle> */}
+        <CardTitle>Rapid Booking</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">

@@ -74,7 +74,7 @@ function RapidBookings() {
       {/* Header */}
       <header className="p-4">
         <div className=" mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold "></h1>
+          <h1 className="text-2xl font-bold ">Rapid Booking</h1>
           <button
             onClick={() => setFilterOpen(!filterOpen)}
             className="flex items-center gap-2  px-4 py-2 rounded-lg hover:bg-[#076d2a] transition-colors"
